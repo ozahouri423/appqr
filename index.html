@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Link to QR Code Converter with Download</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+    }
+    input {
+        padding: 10px;
+        width: 300px;
+        margin-bottom: 20px;
+    }
+    button {
+        padding: 10px 20px;
+        margin: 10px;
+        cursor: pointer;
+    }
+    #qrcode {
+        margin: 20px auto;
+    }
+    #downloadButton {
+        display: none; /* Hide the download button initially */
+    }
+</style>
+</head>
+<body>
+
+<h1>Link to QR Code Converter</h1>
+<input type="text" id="linkInput" placeholder="Enter your link here">
+<br>
+<button onclick="generateQRCode()">Generate QR Code</button>
+<button id="downloadButton" onclick="downloadQRCode()">Download QR Code</button>
+<br><br>
+<div id="qrcode"></div>
+
+<script>
+    let qrCode;
+
+    function generateQRCode() {
+        const link = document.getElementById("linkInput").value;
+        const qrCodeContainer = document.getElementById("qrcode");
+        const downloadButton = document.getElementById("downloadButton");
+
+        // Clear previous QR Code and hide download button
+        qrCodeContainer.innerHTML = "";
+        downloadButton.style.display = "none";
+
+        // Check if the input is not empty
+        if (link.trim() === "") {
+            alert("Please enter a valid link!");
+            return;
+        }
+
+        // Generate QR Code
+        qrCode = new QRCode(qrCodeContainer, {
+            text: link,
+            width: 256,
+            height: 256,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+        });
+
+        // Show the download button after QR Code is generated
+        downloadButton.style.display = "inline-block";
+    }
+
+    function downloadQRCode() {
+        if (!qrCode) {
+            alert("Please generate a QR Code first before downloading!");
+            return;
+        }
+
+        // Find the <img> element inside the QR Code container
+        const qrCodeImage = document.querySelector("#qrcode img");
+
+        if (qrCodeImage) {
+            const link = document.createElement("a");
+            link.href = qrCodeImage.src;
+            link.download = "qrcode.png";
+            link.click();
+        } else {
+            alert("QR Code image not found!");
+        }
+    }
+</script>
+
+</body>
+</html>
