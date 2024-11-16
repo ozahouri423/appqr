@@ -3,29 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Link po to QR Code Converter with Download</title>
+<title>Link to QR Code Converter with Download</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
+    /* إعدادات الجسم */
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Arial', sans-serif;
         text-align: center;
-        margin-top: 50px;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
-    input {
-        padding: 10px;
-        width: 300px;
+
+    h1 {
+        font-size: 2.5rem;
         margin-bottom: 20px;
+        text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     }
+
+    input {
+        padding: 15px;
+        width: 90%;
+        max-width: 400px;
+        margin-bottom: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        border-radius: 25px;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        outline: none;
+        font-size: 1rem;
+        transition: all 0.3s ease-in-out;
+    }
+
+    input:focus {
+        background: rgba(255, 255, 255, 0.5);
+        border-color: #fff;
+    }
+
     button {
-        padding: 10px 20px;
+        padding: 15px 30px;
         margin: 10px;
+        border: none;
+        border-radius: 25px;
+        font-size: 1rem;
+        font-weight: bold;
         cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    button:active {
+        transform: translateY(0px);
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    #downloadButton {
+        background: #fcb045;
+        color: #fff;
+    }
+
+    #downloadButton:hover {
+        background: #fd1d1d;
+    }
+
+    button:first-of-type {
+        background: #833ab4;
+        color: #fff;
+    }
+
+    button:first-of-type:hover {
+        background: #fd1d1d;
+    }
+
     #qrcode {
         margin: 20px auto;
-    }
-    #downloadButton {
-        display: none; /* Hide the download button initially */
+        background: rgba(255, 255, 255, 0.2);
+        padding: 20px;
+        border-radius: 25px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        display: inline-block;
     }
 </style>
 </head>
