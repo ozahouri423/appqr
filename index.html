@@ -1,161 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Link to QR Code Converter with Download</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<style>
-    /* إعدادات الجسم */
-    body {
-        font-family: 'Arial', sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-        color: #fff;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    h1 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-        text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    }
-
-    input {
-        padding: 15px;
-        width: 90%;
-        max-width: 400px;
-        margin-bottom: 20px;
-        border: 2px solid rgba(255, 255, 255, 0.7);
-        border-radius: 25px;
-        background: rgba(255, 255, 255, 0.2);
-        color: #fff;
-        outline: none;
-        font-size: 1rem;
-        transition: all 0.3s ease-in-out;
-    }
-
-    input:focus {
-        background: rgba(255, 255, 255, 0.5);
-        border-color: #fff;
-    }
-
-    button {
-        padding: 15px 30px;
-        margin: 10px;
-        border: none;
-        border-radius: 25px;
-        font-size: 1rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    button:active {
-        transform: translateY(0px);
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    #downloadButton {
-        background: #fcb045;
-        color: #fff;
-    }
-
-    #downloadButton:hover {
-        background: #fd1d1d;
-    }
-
-    button:first-of-type {
-        background: #833ab4;
-        color: #fff;
-    }
-
-    button:first-of-type:hover {
-        background: #fd1d1d;
-    }
-
-    #qrcode {
-        margin: 20px auto;
-        background: rgba(255, 255, 255, 0.2);
-        padding: 20px;
-        border-radius: 25px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        display: inline-block;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع تحويل النصوص إلى صوت</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <h1>محول النص إلى صوت</h1>
+        <textarea id="text-input" placeholder="اكتب النص هنا..."></textarea>
 
-<h1>Link to QR Code Converter</h1>
-<input type="text" id="linkInput" placeholder="Enter your link here">
-<br>
-<button onclick="generateQRCode()">Generate QR Code</button>
-<button id="downloadButton" onclick="downloadQRCode()">Download QR Code</button>
-<br><br>
-<div id="qrcode"></div>
+        <div class="options">
+            <label for="language-select">اختر اللغة:</label>
+            <select id="language-select"></select>
 
-<script>
-    let qrCode;
+            <label for="voice-select">اختر نوع الصوت:</label>
+            <select id="voice-select">
+                <option value="male">ذكر</option>
+                <option value="female">أنثى</option>
+            </select>
+        </div>
 
-    function generateQRCode() {
-        const link = document.getElementById("linkInput").value;
-        const qrCodeContainer = document.getElementById("qrcode");
-        const downloadButton = document.getElementById("downloadButton");
+        <button id="speak-btn">استمع</button>
+        <button id="download-btn">تحميل الصوت</button>
+    </div>
 
-        // Clear previous QR Code and hide download button
-        qrCodeContainer.innerHTML = "";
-        downloadButton.style.display = "none";
-
-        // Check if the input is not empty
-        if (link.trim() === "") {
-            alert("Please enter a valid link!");
-            return;
-        }
-
-        // Generate QR Code
-        qrCode = new QRCode(qrCodeContainer, {
-            text: link,
-            width: 256,
-            height: 256,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-        });
-
-        // Show the download button after QR Code is generated
-        downloadButton.style.display = "inline-block";
-    }
-
-    function downloadQRCode() {
-        if (!qrCode) {
-            alert("Please generate a QR Code first before downloading!");
-            return;
-        }
-
-        // Find the <img> element inside the QR Code container
-        const qrCodeImage = document.querySelector("#qrcode img");
-
-        if (qrCodeImage) {
-            const link = document.createElement("a");
-            link.href = qrCodeImage.src;
-            link.download = "qrcode.png";
-            link.click();
-        } else {
-            alert("QR Code image not found!");
-        }
-    }
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
+
+<style>
+
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+    
+    .container {
+        width: 90%;
+        max-width: 500px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    
+    h1 {
+        margin-bottom: 20px;
+    }
+    
+    textarea {
+        width: 100%;
+        height: 100px;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    
+    .options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    select {
+        padding: 5px;
+        border-radius: 5px;
+    }
+    
+    button {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+    }
+    
+</style>
+
+
+<script>
+
+    // عناصر HTML
+const textInput = document.getElementById('text-input');
+const languageSelect = document.getElementById('language-select');
+const voiceSelect = document.getElementById('voice-select');
+const speakBtn = document.getElementById('speak-btn');
+const downloadBtn = document.getElementById('download-btn');
+
+// تهيئة اللغات والأصوات
+function populateLanguages() {
+    const languages = [
+        { code: 'en-US', name: 'English (US)' },
+        { code: 'ar-SA', name: 'العربية (السعودية)' },
+        { code: 'fr-FR', name: 'Français (France)' },
+        { code: 'es-ES', name: 'Español (Spain)' },
+    ];
+
+    languages.forEach(language => {
+        const option = document.createElement('option');
+        option.value = language.code;
+        option.textContent = language.name;
+        languageSelect.appendChild(option);
+    });
+}
+
+// تحويل النص إلى صوت
+function speakText() {
+    const text = textInput.value;
+    const language = languageSelect.value;
+    const isMaleVoice = voiceSelect.value === 'male';
+
+    if (!text) {
+        alert('يرجى إدخال النص!');
+        return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = language;
+
+    // اختيار نوع الصوت
+    const voices = speechSynthesis.getVoices();
+    const selectedVoice = voices.find(voice =>
+        voice.lang === language && (isMaleVoice ? voice.name.includes('Male') : voice.name.includes('Female'))
+    );
+
+    if (selectedVoice) {
+        utterance.voice = selectedVoice;
+    }
+
+    speechSynthesis.speak(utterance);
+}
+
+// تحميل الصوت كملف
+function downloadAudio() {
+    const text = textInput.value;
+    const language = languageSelect.value;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = language;
+
+    const mediaRecorder = new MediaRecorder(window.stream);
+    const chunks = [];
+
+    mediaRecorder.ondataavailable = event => {
+        chunks.push(event.data);
+    };
+
+    mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks, { type: 'audio/mp3' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'text-to-speech.mp3';
+        link.click();
+    };
+
+    mediaRecorder.start();
+    speechSynthesis.speak(utterance);
+    utterance.onend = () => mediaRecorder.stop();
+}
+
+// إضافة الأحداث
+speakBtn.addEventListener('click', speakText);
+downloadBtn.addEventListener('click', downloadAudio);
+
+// تهيئة الموقع
+populateLanguages();
+
+</script>
